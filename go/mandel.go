@@ -7,11 +7,9 @@ import (
 	"image"
 	"image/png"
 	"log"
-	"math"
 	"net/http"
 	"strconv"
 	"strings"
-	"sync"
 	"time"
 )
 
@@ -73,35 +71,29 @@ func (m *MandelParams) Render() image.Image {
 	img := image.NewRGBA(image.Rect(0, 0, int(m.Width), int(m.Height)))
 	xremap := genRemap(0, float64(m.Width), -m.Scale*float64(m.Width)/2, m.Scale*float64(m.Width)/2)
 	yremap := genRemap(0, float64(m.Height), -m.Scale*float64(m.Height)/2, m.Scale*float64(m.Height)/2)
-	var wg sync.WaitGroup
-	wg.Add(m.Height)
 	for y := 0; y < m.Height; y++ {
-		go func(y int) {
-			for x := 0; x < m.Width; x++ {
-				x_ := real(m.Origin) + xremap(float64(x))
-				y_ := imag(m.Origin) + yremap(float64(y))
-				z := complex(x_, y_)
-				c := z
-				i := int64(0)
-				for i < ITERATION_LIMIT && cplxlensqrd(z) <= 4.0 {
-					z = z*z + c
-					i++
-				}
-				var col hsva.HSVA
-				if cplxlensqrd(z) <= 4.0 {
-					col = hsva.HSVA{0, 0, 0, 1.0}
-				} else {
-					col = hsva.HSVA{(float64(i) + (2.0-math.Sqrt(cplxlensqrd(z)))/2.0) / ITERATION_LIMIT * 360.0 * m.ColorScale, 1.0, 1.0, 1.0}
-				}
-				for col.H > 360.0 {
-					col.H -= 360.0
-				}
-				img.Set(x, y, col)
+		for x := 0; x < m.Width; x++ {
+			x_ := real(m.Origin) + xremap(float64(x))
+			y_ := imag(m.Origin) + yremap(float64(y))
+			z := complex(x_, y_)
+			c := z
+			i := int64(0)
+			for i < ITERATION_LIMIT && cplxlensqrd(z) <= 4.0 {
+				z = z*z + c
+				i++
 			}
-			wg.Done()
-		}(y)
+			var col hsva.HSVA
+			if cplxlensqrd(z) <= 4.0 {
+				col = hsva.HSVA{0, 0, 0, 1.0}
+			} else {
+				col = hsva.HSVA{float64(i) / ITERATION_LIMIT * 360.0 * m.ColorScale, 1.0, 1.0, 1.0}
+			}
+			for col.H > 360.0 {
+				col.H -= 360.0
+			}
+			img.Set(x, y, col)
+		}
 	}
-	wg.Wait()
 	return img
 }
 

@@ -7,10 +7,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View;
 import android.graphics.Bitmap;
+import org.apache.commons.math.complex.Complex;
 
 public class MainActivity extends Activity
 {
-	private MandelRenderer renderer_a = new DummyRenderer();
+	private MandelRenderer renderer_a = new JavaRenderer();
 	private MandelRenderer renderer_b = new DummyRenderer();
 
 	private ImageView image_a, image_b;
@@ -32,6 +33,9 @@ public class MainActivity extends Activity
     	MandelRendererParameters mrp = new MandelRendererParameters();
         mrp.width = image_a.getWidth();
         mrp.height = image_a.getHeight();
+        mrp.scale = 0.005;
+        mrp.colorScale = 10;
+        mrp.origin = new Complex(-0.5, 0);
 
         String template = getString(R.string.benchmark_result);
 
