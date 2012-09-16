@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MandelGo</string>
+    <string name="render">Render</string>
+    <string name="not_rendered">Not rendered</string>
+    <string name="benchmark_result" formatted="false">%s: %.3fms</string>
+</resources>

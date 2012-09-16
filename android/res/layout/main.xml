@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	>
+	<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_weight="1"
+		android:padding="8dp"
+		android:id="@+id/image_a"
+		/>
+	<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:id="@+id/output_a"
+		android:text="@string/not_rendered"
+		/>
+	<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+		android:src="@android:drawable/divider_horizontal_dark"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:scaleType="fitXY"
+		android:paddingLeft="8dp"
+		android:paddingRight="8dp"
+		android:paddingBottom="4dp"
+		android:paddingTop="4dp"
+		/>
+	<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_weight="1"
+		android:padding="8dp"
+		android:id="@+id/image_b"
+		/>
+	<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:id="@+id/output_b"
+		android:text="@string/not_rendered"
+		/>
+	<Button xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/render"
+		android:onClick="render"
+		/>
+</LinearLayout>
+
