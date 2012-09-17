@@ -3,6 +3,9 @@
     <string name="app_name">MandelGo</string>
     <string name="render">Render</string>
     <string name="not_rendered">Not rendered</string>
-    <string name="benchmark_result" formatted="false">%s: %.3fms</string>
-    <string name="working">Rendering...</string>
+    <string name="status_result" formatted="false">%s: %.3fms</string>
+    <string name="status_update" formatted="false">%s: %s</string>
+    <string name="progress_update" formatted="false">%3.0f%% done</string>
+    <string name="contacting_server">Contacting server...</string>
+    <string name="decoding_stream">Decoding stream...</string>
 </resources>
