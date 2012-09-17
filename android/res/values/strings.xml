@@ -4,4 +4,5 @@
     <string name="render">Render</string>
     <string name="not_rendered">Not rendered</string>
     <string name="benchmark_result" formatted="false">%s: %.3fms</string>
+    <string name="working">Rendering...</string>
 </resources>

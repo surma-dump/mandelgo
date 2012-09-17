@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 
 public class DummyRenderer implements MandelRenderer {
-	public Bitmap render(MandelRendererParameters mrp) {
+	public void render(MandelRendererParameters mrp, MandelRenderingCallback cb) {
 		Bitmap b = Bitmap.createBitmap(mrp.width, mrp.height, Bitmap.Config.ARGB_8888);
 		for(int y = 0; y < mrp.height; y++) {
 			b.setPixel(0, y, Color.RED);
@@ -14,7 +14,7 @@ public class DummyRenderer implements MandelRenderer {
 			b.setPixel(x, 0, Color.RED);
 			b.setPixel(x, mrp.height-1, Color.RED);
 		}
-		return b;
+		cb.setImage(b);
 	}
 
 	public String getName() {

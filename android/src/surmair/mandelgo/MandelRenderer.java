@@ -3,6 +3,6 @@ package surmair.mandelgo;
 import android.graphics.Bitmap;
 
 public interface MandelRenderer {
-	Bitmap render(MandelRendererParameters mrp);
+	void render(MandelRendererParameters mrp, MandelRenderingCallback cb);
 	String getName();
 }

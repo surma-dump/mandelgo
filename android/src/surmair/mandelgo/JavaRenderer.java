@@ -7,7 +7,7 @@ import org.apache.commons.math.complex.Complex;
 public class JavaRenderer implements MandelRenderer {
 	private static final int ITERATION_LIMIT = 100;
 
-	public Bitmap render(MandelRendererParameters mrp) {
+	public void render(MandelRendererParameters mrp, MandelRenderingCallback cb) {
 		Bitmap b = Bitmap.createBitmap(mrp.width, mrp.height, Bitmap.Config.ARGB_8888);
 		Remapper map_x = new Remapper(0, (double)mrp.width, -mrp.scale*((double)mrp.width)/2, mrp.scale*((double)mrp.width)/2);
 		Remapper map_y = new Remapper(0, (double)mrp.height, -mrp.scale*((double)mrp.height)/2, mrp.scale*((double)mrp.height)/2);
@@ -38,7 +38,7 @@ public class JavaRenderer implements MandelRenderer {
 				b.setPixel(pixel_x, pixel_y, col);
 			}
 		}
-		return b;
+		cb.setImage(b);
 	}
 
 	public String getName() {

@@ -9,14 +9,14 @@ import android.view.View;
 import android.graphics.Bitmap;
 import org.apache.commons.math.complex.Complex;
 
-public class MainActivity extends Activity
-{
+public class MainActivity extends Activity implements MandelRenderingCallback {
 	private MandelRenderer renderer_a = new JavaRenderer();
-	private MandelRenderer renderer_b = new DummyRenderer();
+	private MandelRenderer renderer_b = new GoRenderer();
+    private MandelRenderer current_renderer;
 
-	private ImageView image_a, image_b;
-    private TextView output_a, output_b;
-    private long duration;
+	private ImageView image_a, image_b, current_image;
+    private TextView output_a, output_b, current_output;
+    private long start;
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -37,20 +37,26 @@ public class MainActivity extends Activity
         mrp.colorScale = 10;
         mrp.origin = new Complex(-0.5, 0);
 
-        String template = getString(R.string.benchmark_result);
 
-        image_a.setImageBitmap(renderAndBenchmark(renderer_a, mrp));
-        output_a.setText(String.format(template, renderer_a.getName(), duration/1000000.0));
+        current_image = image_a;
+        current_output = output_a;
+        current_renderer = renderer_a;
+        current_output.setText(getString(R.string.working));
+        start = System.nanoTime();
+        current_renderer.render(mrp, this);
 
-        image_b.setImageBitmap(renderAndBenchmark(renderer_b, mrp));
-        output_b.setText(String.format(template, renderer_b.getName(), duration/1000000.0));
-
+        current_image = image_b;
+        current_output = output_b;
+        current_renderer = renderer_b;
+        current_output.setText(getString(R.string.working));
+        start = System.nanoTime();
+        current_renderer.render(mrp, this);
     }
 
-    private Bitmap renderAndBenchmark(MandelRenderer mr, MandelRendererParameters mrp) {
-        long start = System.nanoTime();
-        Bitmap b = mr.render(mrp);
-        duration = System.nanoTime()-start;
-        return b;
+    public void setImage(Bitmap b) {
+        current_image.setImageBitmap(b);
+        String template = getString(R.string.benchmark_result);
+        long duration = System.nanoTime() - start;
+        current_output.setText(String.format(template, current_renderer.getName(), duration/1000000.0));
     }
 }
