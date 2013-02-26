@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	hsva "github.com/kortschak/biogo/graphics/color"
+	hsva "github.com/hawx/img/altcolor"
 	"image"
 	"image/png"
 	"log"
