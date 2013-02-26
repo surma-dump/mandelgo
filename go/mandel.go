@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	hsva "github.com/hawx/img/altcolor"
+	hsva "github.com/surma-dump/img/altcolor"
 	"image"
 	"image/png"
 	"log"
